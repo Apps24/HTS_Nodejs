@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // Database Connection
-mongoose.connect(mongoString);
+mongoose.connect("mongodb+srv://apurvpatole2:8LlkXkTLQOwpZarj@cluster0.sqjzhql.mongodb.net/?retryWrites=true&w=majority");
 const database = mongoose.connection
 
 database.on('error', (error) => {
