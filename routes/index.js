@@ -22,6 +22,7 @@ router.post("/register", passwordMiddleware, async (req, res) => {
   const encryptedPassword = req.encryptedPassword;
   // console.log(encryptedPassword);
   const user = await Model.findOne({ email });
+  console.log(user);
   if (user) {
     return res.status(400).json({ msg: "User already exists." });
   } else {
