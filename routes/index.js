@@ -21,18 +21,24 @@ router.post("/register", passwordMiddleware, async (req, res) => {
   const { first_name, last_name, email, password } = req.body;
   const encryptedPassword = req.encryptedPassword;
   // console.log(encryptedPassword);
-  const data = new Model({
-    first_name,
-    last_name,
-    email,
-    password: encryptedPassword,
-  });
-  try {
-    const savedData = await data.save();
-    res.status(200).json(savedData);
-  } catch (error) {
-    res.status(400).json({ message: error });
+  const user = await Model.findOne({ email });
+  if (user) {
+    return res.status(400).json({ msg: "User already exists." });
+  } else {
+    const data = new Model({
+      first_name,
+      last_name,
+      email,
+      password: encryptedPassword,
+    });
+    try {
+      const savedData = await data.save();
+      res.status(200).json(savedData);
+    } catch (error) {
+      res.status(400).json({ message: error });
+    }
   }
+ 
 });
 
 // Get All Users
